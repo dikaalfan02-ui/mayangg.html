@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matcha Pure - Authentic Japanese Ceremonial &amp; Everyday Matcha</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons CDN -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        matcha: {
+                            50: '#f4f7f2',
+                            100: '#e3ece0',
+                            200: '#c7d9c2',
+                            300: '#a3be9c',
+                            400: '#8fa87f',
+                            500: '#6b8a5b',
+                            600: '#4a7c59',
+                            700: '#385e43',
+                            800: '#2d5a27',
+                            900: '#1d3b19',
+                            950: '#0f200d',
+                        },
+                        cream: '#faf7f2',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-header {
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f7f2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8fa87f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a7c59;
+        }
+
+        .badge-pulse {
+            animation: pulse-slow 2s infinite;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.03); }
+        }
+    </style>
+</head>
+<body class="bg-cream text-stone-800 font-sans antialiased selection:bg-matcha-200 selection:text-matcha-900">
+
+    <header class="fixed top-0 left-0 right-0 z-40 glass-header border-b border-matcha-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full bg-matcha-800 flex items-center justify-center text-cream shadow-md group-hover:bg-matcha-700 transition">
+                    <i class="ph-fill ph-plant text-2xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-bold tracking-tight text-matcha-900 leading-none">Matcha Pure</span>
+                    <span class="text-[10px] tracking-widest text-matcha-600 uppercase font-semibold mt-0.5">Kyoto Craft</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+                <a href="#home" class="hover:text-matcha-800 transition">Beranda</a>
+                <a href="#menu" class="hover:text-matcha-800 transition">Katalog Menu</a>
+                <a href="#benefits" class="hover:text-matcha-800 transition">Manfaat Matcha</a>
+                <a href="#brewing" class="hover:text-matcha-800 transition">Cara Menyeduh</a>
+            </nav>
+
+            <!-- Actions & Cart Button -->
+            <div class="flex items-center gap-4">
+                <button id="cartBtn" onclick="toggleCart(true)" class="relative p-2.5 rounded-full bg-matcha-100 hover:bg-matcha-200 text-matcha-900 transition flex items-center justify-center" aria-label="Lihat Keranjang">
+                    <i class="ph ph-shopping-bag text-xl"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-matcha-800 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-cream">0</span>
+                </button>
+
+                <a href="https://wa.me/6281234567890?text=Halo%20Matcha%20Pure,%20saya%20ingin%20bertanya%20mengenai%20produk%20matcha" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-matcha-800 hover:bg-matcha-900 text-cream px-4 py-2.5 rounded-full text-xs font-semibold tracking-wide transition shadow-sm">
+                    <i class="ph-bold ph-whatsapp-logo text-base"></i>
+                    <span>Tanya CS</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-stone-700 hover:text-matcha-800">
+                    <i class="ph ph-list text-2xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-cream border-b border-matcha-100 px-6 py-4 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block text-stone-700 hover:text-matcha-800 font-medium">Beranda</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block text-stone-700 hover:text-matcha-800 font-medium">Katalog Menu</a>
+            <a href="#benefits" onclick="toggleMobileMenu()" class="block text-stone-700 hover:text-matcha-800 font-medium">Manfaat Matcha</a>
+            <a href="#brewing" onclick="toggleMobileMenu()" class="block text-stone-700 hover:text-matcha-800 font-medium">Cara Menyeduh</a>
+            <div class="pt-2">
+                <a href="https://wa.me/6281234567890?text=Halo%20Matcha%20Pure,%20saya%20ingin%20order" target="_blank" class="w-full flex items-center justify-center gap-2 bg-matcha-800 text-cream py-2.5 rounded-full text-sm font-medium">
+                    <i class="ph-bold ph-whatsapp-logo text-lg"></i>
+                    <span>Hubungi WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section id="home" class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-matcha-50/50 to-cream">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Hero Text -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-matcha-100 text-matcha-800 text-xs font-semibold uppercase tracking-wider">
+                            <i class="ph-fill ph-leaf"></i> 100% Impor Dari Uji, Kyoto
+                        </div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-matcha-950 leading-tight">
+                            Nikmati Keaslian <br class="hidden sm:inline">
+                            <span class="italic text-matcha-700">Matcha Jepang</span> Terbaik
+                        </h1>
+                        <p class="text-stone-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                            Rasakan kenikmatan green tea autentik berkualitas Ceremonial Grade. Dipetik langsung dari kebun teh Kyoto untuk menghadirkan rasa umami yang kaya, wangi khas, dan kesegaran penuh antioksidan.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <a href="#menu" class="w-full sm:w-auto bg-matcha-800 hover:bg-matcha-900 text-cream px-8 py-3.5 rounded-full font-semibold text-sm transition shadow-lg shadow-matcha-900/10 flex items-center justify-center gap-2">
+                                <span>Pesan Sekarang</span>
+                                <i class="ph-bold ph-arrow-right"></i>
+                            </a>
+                            <a href="#benefits" class="w-full sm:w-auto bg-white border border-matcha-200 hover:bg-matcha-50 text-matcha-900 px-8 py-3.5 rounded-full font-semibold text-sm transition text-center">
+                                Pelajari Manfaat
+                            </a>
+                        </div>
+
+                        <!-- Highlights Quick Stats -->
+                        <div class="pt-8 grid grid-cols-3 gap-4 border-t border-matcha-200/60 max-w-md mx-auto lg:mx-0">
+                            <div>
+                                <p class="font-serif text-2xl font-bold text-matcha-900">100%</p>
+                                <p class="text-xs text-stone-500">Organik Alami</p>
+                            </div>
+                            <div>
+                                <p class="font-serif text-2xl font-bold text-matcha-900">Grade A</p>
+                                <p class="text-xs text-stone-500">Ceremonial Quality</p>
+                            </div>
+                            <div>
+                                <p class="font-serif text-2xl font-bold text-matcha-900">10k+</p>
+                                <p class="text-xs text-stone-500">Pelanggan Puas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual / Image -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl bg-matcha-200 relative">
+                                <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Iced Matcha Latte" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-matcha-950/40 via-transparent to-transparent"></div>
+                            </div>
+                            
+                            <!-- Floating Card Overlay -->
+                            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-matcha-100 hidden sm:flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-matcha-100 text-matcha-800 flex items-center justify-center text-2xl">
+                                    <i class="ph-fill ph-sparkle"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-stone-800">Freshly Whisked</p>
+                                    <p class="text-[11px] text-stone-500">Dibuat segar sesuai pesanan Anda</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-matcha-600">Pilihan Terpopuler</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-matcha-950 mt-1">Katalog Menu &amp; Produk</h2>
+                <p class="text-stone-600 text-sm mt-2">Pilih varian minuman siap minum kesukaanmu atau bubuk matcha otentik untuk diracik di rumah.</p>
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap items-center justify-center gap-2 mt-8">
+                    <button onclick="filterCategory('all')" class="cat-btn active border px-5 py-2 rounded-full text-xs font-semibold transition bg-matcha-800 text-white border-matcha-800">Semua Menu</button>
+                    <button onclick="filterCategory('drink')" class="cat-btn border px-5 py-2 rounded-full text-xs font-semibold transition bg-white text-stone-600 border-stone-200 hover:border-matcha-500">Minuman Ready-to-Drink</button>
+                    <button onclick="filterCategory('powder')" class="cat-btn border px-5 py-2 rounded-full text-xs font-semibold transition bg-white text-stone-600 border-stone-200 hover:border-matcha-500">Bubuk Matcha (Powder)</button>
+                    <button onclick="filterCategory('tools')" class="cat-btn border px-5 py-2 rounded-full text-xs font-semibold transition bg-white text-stone-600 border-stone-200 hover:border-matcha-500">Aksesoris Teaware</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Javascript will inject products here -->
+            </div>
+        </section>
+
+        <section id="benefits" class="py-20 bg-matcha-900 text-cream relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-matcha-300">Kebaikan Alami</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2">Mengapa Memilih Matcha?</h2>
+                    <p class="text-matcha-100/80 text-sm mt-2">Selain rasa lezatnya yang khas, matcha kaya akan nutrisi penting untuk kesehatan tubuh dan pikiran Anda.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-matcha-950/60 p-8 rounded-2xl border border-matcha-700/50 hover:border-matcha-500 transition">
+                        <div class="w-14 h-14 rounded-xl bg-matcha-800 text-matcha-200 flex items-center justify-center text-3xl mb-6">
+                            <i class="ph-fill ph-shield-check"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold mb-3">Tinggi Antioksidan</h3>
+                        <p class="text-matcha-100/70 text-sm leading-relaxed">
+                            Mengandung EGCG (Epigallocatechin Gallate) hingga 137x lebih tinggi dari teh hijau biasa untuk menangkal radikal bebas dan menjaga daya tahan tubuh.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-matcha-950/60 p-8 rounded-2xl border border-matcha-700/50 hover:border-matcha-500 transition">
+                        <div class="w-14 h-14 rounded-xl bg-matcha-800 text-matcha-200 flex items-center justify-center text-3xl mb-6">
+                            <i class="ph-fill ph-lightning"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold mb-3">Energi &amp; Fokus Stabil</h3>
+                        <p class="text-matcha-100/70 text-sm leading-relaxed">
+                            Kombinasi alami Kafein dan L-Theanine memberikan tambahan energi yang tahan lama tanpa rasa gelisah atau efek 'caffeine crash'.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-matcha-950/60 p-8 rounded-2xl border border-matcha-700/50 hover:border-matcha-500 transition">
+                        <div class="w-14 h-14 rounded-xl bg-matcha-800 text-matcha-200 flex items-center justify-center text-3xl mb-6">
+                            <i class="ph-fill ph-heartbeat"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold mb-3">Tingkatkan Metabolisme</h3>
+                        <p class="text-matcha-100/70 text-sm leading-relaxed">
+                            Membantu proses pembakaran kalori dan menjaga kesehatan pencernaan secara alami, sangat cocok dijadikan bagian dari gaya hidup sehat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="brewing" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5">
+                    <div class="rounded-3xl overflow-hidden shadow-xl aspect-4/5 relative">
+                        <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Menyeduh Matcha" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-matcha-600">Panduan Tradisional</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-matcha-950">Cara Menyeduh Matcha Sempurna</h2>
+                    <p class="text-stone-600 text-sm leading-relaxed">Ikuti 4 langkah sederhana ini untuk menyajikan cangkir matcha berbusa lembut dan bercita rasa otentik khas tradisi teh Jepang.</p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex gap-4 p-4 rounded-xl bg-white border border-matcha-100 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-matcha-100 text-matcha-800 font-serif font-bold flex items-center justify-center shrink-0">1</div>
+                            <div>
+                                <h4 class="font-semibold text-stone-800 text-sm">Ayak Bubuk Matcha</h4>
+                                <p class="text-xs text-stone-500 mt-0.5">Ayak 1-2 sendok teh (sekitar 2g) bubuk matcha ke dalam mangkuk (chawan) agar tidak menggumpal.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 p-4 rounded-xl bg-white border border-matcha-100 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-matcha-100 text-matcha-800 font-serif font-bold flex items-center justify-center shrink-0">2</div>
+                            <div>
+                                <h4 class="font-semibold text-stone-800 text-sm">Tambahkan Air Hangat</h4>
+                                <p class="text-xs text-stone-500 mt-0.5">Tuangkan sekitar 70ml air hangat dengan suhu ideal 70°-80°C (bukan air mendidih agar rasa tidak pahit).</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 p-4 rounded-xl bg-white border border-matcha-100 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-matcha-100 text-matcha-800 font-serif font-bold flex items-center justify-center shrink-0">3</div>
+                            <div>
+                                <h4 class="font-semibold text-stone-800 text-sm">Kocok dengan Whisk Bambu (Chasen)</h4>
+                                <p class="text-xs text-stone-500 mt-0.5">Kocok secara cepat dengan gerakan membentuk huruf 'W' atau 'M' hingga berbusa hijau muda secara merata.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 p-4 rounded-xl bg-white border border-matcha-100 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-matcha-100 text-matcha-800 font-serif font-bold flex items-center justify-center shrink-0">4</div>
+                            <div>
+                                <h4 class="font-semibold text-stone-800 text-sm">Tambahkan Susu / Es (Opsional)</h4>
+                                <p class="text-xs text-stone-500 mt-0.5">Nikmati langsung secara murni, atau tambahkan es batu dan susu oat/susu segar untuk membuat Matcha Latte hangat atau dingin.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-matcha-950 text-matcha-100 pt-16 pb-12 border-t border-matcha-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-matcha-900">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-matcha-800 flex items-center justify-center text-cream">
+                            <i class="ph-fill ph-plant text-lg"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-cream">Matcha Pure</span>
+                    </div>
+                    <p class="text-xs text-matcha-200/70 leading-relaxed">
+                        Menghadirkan kelezatan dan manfaat matcha otentik Jepang langsung ke cangkir Anda. Diproses dari daun teh pilihan terbaik di Uji, Kyoto.
+                    </p>
+                    <div class="flex items-center gap-3 text-matcha-300 pt-2">
+                        <a href="#" class="w-8 h-8 rounded-full bg-matcha-900 hover:bg-matcha-800 flex items-center justify-center transition"><i class="ph-bold ph-instagram-logo"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-matcha-900 hover:bg-matcha-800 flex items-center justify-center transition"><i class="ph-bold ph-tiktok-logo"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-matcha-900 hover:bg-matcha-800 flex items-center justify-center transition"><i class="ph-bold ph-facebook-logo"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="font-serif text-sm font-bold text-cream mb-4 tracking-wider uppercase">Navigasi</h4>
+                    <ul class="space-y-2 text-xs text-matcha-200/70">
+                        <li><a href="#home" class="hover:text-matcha-300 transition">Beranda</a></li>
+                        <li><a href="#menu" class="hover:text-matcha-300 transition">Katalog Produk &amp; Minuman</a></li>
+                        <li><a href="#benefits" class="hover:text-matcha-300 transition">Khasiat Teh Matcha</a></li>
+                        <li><a href="#brewing" class="hover:text-matcha-300 transition">Panduan Menyeduh</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Operational Hours -->
+                <div>
+                    <h4 class="font-serif text-sm font-bold text-cream mb-4 tracking-wider uppercase">Jam Operasional</h4>
+                    <ul class="space-y-2 text-xs text-matcha-200/70">
+                        <li class="flex justify-between"><span>Senin - Jumat:</span> <span>08.00 - 20.00 WIB</span></li>
+                        <li class="flex justify-between"><span>Sabtu - Minggu:</span> <span>09.00 - 21.00 WIB</span></li>
+                        <li class="pt-2 text-matcha-400 font-semibold">* Pesanan WhatsApp tetap dilayani 24 Jam</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact & WhatsApp -->
+                <div>
+                    <h4 class="font-serif text-sm font-bold text-cream mb-4 tracking-wider uppercase">Kontak &amp; Pemesanan</h4>
+                    <ul class="space-y-3 text-xs text-matcha-200/70">
+                        <li class="flex items-center gap-2">
+                            <i class="ph-bold ph-whatsapp-logo text-lg text-matcha-400"></i>
+                            <span>+62 856-0081-0664</span></li>
+                        <li class="flex items-center gap-2">
+                            <i class="ph-bold ph-envelope-simple text-lg text-matcha-400"></i>
+                            <span>hello@matchapure.id</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="ph-bold ph-map-pin text-lg text-matcha-400 shrink-0"></i>
+                            <span>Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 text-center text-xs text-matcha-200/40 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p>© 2026 Matcha Pure Indonesia. All rights reserved.</p>
+                <p>Authentic Kyoto Ceremonial Grade Matcha</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cartModal" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <!-- Backdrop Overlay -->
+        <div id="cartBackdrop" onclick="toggleCart(false)" class="fixed inset-0 bg-stone-900/50 backdrop-blur-sm transition-opacity opacity-0"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div id="cartPanel" class="w-screen max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300">
+                
+                <!-- Cart Header -->
+                <div class="p-6 bg-matcha-50 border-b border-matcha-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2 text-matcha-900">
+                        <i class="ph-bold ph-shopping-bag text-xl"></i>
+                        <h2 class="font-serif text-lg font-bold">Keranjang Belanja</h2>
+                    </div>
+                    <button onclick="toggleCart(false)" class="p-2 text-stone-400 hover:text-stone-600 rounded-full">
+                        <i class="ph-bold ph-x text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic items rendered via JS -->
+                </div>
+
+                <!-- Cart Footer / Order Form -->
+                <div class="p-6 bg-cream border-t border-matcha-100 space-y-4">
+                    
+                    <!-- Subtotal calculation -->
+                    <div class="space-y-1.5 text-sm">
+                        <div class="flex justify-between text-stone-600">
+                            <span>Subtotal</span>
+                            <span id="subtotalAmount" class="font-medium text-stone-800">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-stone-600">
+                            <span>Estimasi Ongkir</span>
+                            <span class="text-xs text-matcha-700 bg-matcha-100 px-2 py-0.5 rounded">Dihitung CS WA</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-base text-matcha-950 pt-2 border-t border-stone-200">
+                            <span>Total Pesanan</span>
+                            <span id="totalAmount">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Customer Detail Inputs -->
+                    <div class="space-y-2 pt-2">
+                        <input type="text" id="custName" placeholder="Nama Lengkap Anda *" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 focus:outline-none focus:border-matcha-600 bg-white">
+                        <textarea id="custAddress" rows="2" placeholder="Alamat Pengiriman / Catatan *" class="w-full text-xs p-2.5 rounded-lg border border-stone-300 focus:outline-none focus:border-matcha-600 bg-white"></textarea>
+                    </div>
+
+                    <!-- WhatsApp Checkout Button -->
+                    <button onclick="checkoutToWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl font-bold text-sm transition shadow-lg flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-whatsapp-logo text-xl"></i>
+                        <span>Checkout via WhatsApp</span>
+                    </button>
+                    <p class="text-[10px] text-center text-stone-400">Pesanan akan dikirimkan otomatis sebagai teks format pesan ke CS kami.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-matcha-900 text-cream px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="ph-fill ph-check-circle text-matcha-300 text-xl"></i>
+        <span id="toastMsg" class="text-xs font-medium">Produk berhasil ditambahkan!</span>
+    </div>
+
+    <script>
+        // Product Data Array
+        const products = [
+            {
+                id: 1,
+                name: "Matcha Latte Premium",
+                category: "drink",
+                price: 35000,
+                badge: "Best Seller",
+                desc: "Racikan Ceremonial Grade Matcha khas Kyoto dipadu dengan susu segar lembut.",
+                image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                name: "Iced Strawberry Matcha Latte",
+                category: "drink",
+                price: 38000,
+                badge: "Favorit",
+                desc: "Perpaduan unik puree buah stroberi asli yang manis segar dengan matcha creamy.",
+                image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                name: "Ceremonial Uji Matcha Powder 50g",
+                category: "powder",
+                price: 145000,
+                badge: "Grade A",
+                desc: "Bubuk Matcha murni Ceremonial Grade asli dipetik dari kebun Uji, Kyoto.",
+                image: "https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                name: "Daily Culinary Matcha Powder 100g",
+                category: "powder",
+                price: 85000,
+                badge: "Ekonomis",
+                desc: "Sangat cocok untuk racikan baking kue, smoothie bowl, dan olahan kuliner.",
+                image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                name: "Matcha Espresso Fusion",
+                category: "drink",
+                price: 40000,
+                badge: "Rekomendasi",
+                desc: "Kombinasi mantap antara keharuman matcha segar dan 1 shot espresso Arabika.",
+                image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                name: "Chasen (Bambu Whisk Tradisional)",
+                category: "tools",
+                price: 65000,
+                badge: "Authentic",
+                desc: "Pengocok teh bambu alami dengan 100 prongs untuk menghasilkan busa matcha sempurna.",
+                image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        // State Management
+        let cart = [];
+
+        // Format Currency Function
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        // Render Products
+        function renderProducts(items) {
+            const container = document.getElementById('productGrid');
+            container.innerHTML = '';
+
+            items.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl overflow-hidden border border-matcha-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group";
+                card.innerHTML = `
+                    <div class="relative aspect-4/3 overflow-hidden bg-matcha-50">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 bg-matcha-800 text-cream text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">
+                            ${product.badge}
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif font-bold text-lg text-matcha-950 group-hover:text-matcha-700 transition">${product.name}</h3>
+                            <p class="text-xs text-stone-500 mt-1.5 leading-relaxed line-clamp-2">${product.desc}</p>
+                        </div>
+                        <div class="pt-3 border-t border-stone-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-stone-400 block font-medium">Harga</span>
+                                <span class="font-bold text-matcha-900 text-base">${formatRupiah(product.price)}</span>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="bg-matcha-100 hover:bg-matcha-800 text-matcha-900 hover:text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+                                <i class="ph-bold ph-plus"></i>
+                                <span>Tambah</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter Products by Category
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-matcha-800', 'text-white', 'border-matcha-800');
+                btn.classList.add('bg-white', 'text-stone-600', 'border-stone-200');
+            });
+
+            event.target.classList.remove('bg-white', 'text-stone-600', 'border-stone-200');
+            event.target.classList.add('bg-matcha-800', 'text-white', 'border-matcha-800');
+
+            if (cat === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                renderProducts(filtered);
+            }
+        }
+
+        // Add Item to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name}" ditambahkan ke keranjang`);
+        }
+
+        // Change Quantity
+        function updateQty(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Update Cart UI
+        function updateCartUI() {
+            // Cart Counter
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').innerText = totalCount;
+
+            // Render Cart List
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 space-y-3">
+                        <i class="ph-thin ph-shopping-bag text-5xl text-stone-300"></i>
+                        <p class="text-stone-500 text-sm font-medium">Keranjang belanja Anda masih kosong.</p>
+                        <button onclick="toggleCart(false)" class="text-xs text-matcha-700 font-bold underline">Mulai Belanja</button>
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = "flex items-center gap-3 p-3 bg-cream rounded-xl border border-matcha-100";
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-semibold text-xs text-stone-800 truncate">${item.name}</h4>
+                            <p class="text-xs font-bold text-matcha-800 mt-0.5">${formatRupiah(item.price)}</p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white px-2 py-1 rounded-lg border border-stone-200">
+                            <button onclick="updateQty(${item.id}, -1)" class="text-stone-500 hover:text-stone-800 font-bold text-xs">-</button>
+                            <span class="text-xs font-bold text-stone-800 px-1">${item.qty}</span>
+                            <button onclick="updateQty(${item.id}, 1)" class="text-stone-500 hover:text-stone-800 font-bold text-xs">+</button>
+                        </div>
+                    `;
+                    container.appendChild(cartItem);
+                });
+            }
+
+            // Subtotal & Total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('subtotalAmount').innerText = formatRupiah(total);
+            document.getElementById('totalAmount').innerText = formatRupiah(total);
+        }
+
+        // Toggle Cart Drawer
+        function toggleCart(open) {
+            const modal = document.getElementById('cartModal');
+            const backdrop = document.getElementById('cartBackdrop');
+            const panel = document.getElementById('cartPanel');
+
+            if (open) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    panel.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                backdrop.classList.add('opacity-0');
+                panel.classList.add('translate-x-full');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Checkout via WhatsApp
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Keranjang belanja Anda masih kosong!");
+                return;
+            }
+
+            const name = document.getElementById('custName').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !address) {
+                alert("Mohon lengkapi Nama Lengkap dan Alamat Pengiriman Anda terlebih dahulu.");
+                return;
+            }
+
+            // WhatsApp Number Target
+            const waNumber = "6281234567890";
+
+            // Format Order Message
+            let message = `*HALO MATCHA PURE, SAYA INGIN PESAN*\n`;
+            message += `------------------------------------\n`;
+            message += `*Nama:* ${name}\n`;
+            message += `*Alamat/Catatan:* ${address}\n\n`;
+            message += `*DETAIL PESANAN:*\n`;
+
+            let grandTotal = 0;
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                grandTotal += itemTotal;
+                message += `${index + 1}. ${item.name} x${item.qty} = ${formatRupiah(itemTotal)}\n`;
+            });
+
+            message += `------------------------------------\n`;
+            message += `*TOTAL PESANAN:* ${formatRupiah(grandTotal)}\n\n`;
+            message += `Mohon info total ongkir dan instruksi pembayarannya. Terima kasih!`;
+
+            // Open WhatsApp Link
+            const encodedMsg = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${waNumber}?text=${encodedMsg}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Toast Notification Function
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initial Render on Window Load
+        window.onload = function() {
+            renderProducts(products);
+            updateCartUI();
+        };
+    </script>
+
+</body></html>
